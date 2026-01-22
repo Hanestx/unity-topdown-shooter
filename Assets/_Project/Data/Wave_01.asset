@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Wave_01
   m_EditorClassIdentifier: Assembly-CSharp::Project.Data.WaveConfig
   EnemyCount: 5
-  SpawnInterval: 0.5
+  SpawnInterval: 0.6
   DelayBeforeNextWave: 2

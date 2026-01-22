@@ -13,6 +13,10 @@ namespace Project.Core.Pool
         [SerializeField] private Enemy _enemyPrefab;
         [SerializeField] private int _enemyPrewarm = 10;
 
+        [Header("Runtime Roots")]
+        [SerializeField] private Transform _enemiesRoot;
+        [SerializeField] private Transform _projectilesRoot;
+
         private ObjectPool<Bullet> _bulletPool;
         private ObjectPool<Enemy> _enemyPool;
 
@@ -32,13 +36,13 @@ namespace Project.Core.Pool
             _bulletPool = new ObjectPool<Bullet>(
                 _bulletPrefab,
                 _bulletPrewarm,
-                transform
+                _projectilesRoot
             );
 
             _enemyPool = new ObjectPool<Enemy>(
                 _enemyPrefab,
                 _enemyPrewarm,
-                transform
+                _enemiesRoot
             );
 
             EnemyFactory = new EnemyFactory(this);
