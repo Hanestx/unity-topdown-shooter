@@ -8,7 +8,7 @@ namespace Project.Systems
     public class Enemy : MonoBehaviour, IPoolable
     {
         private HealthComponent _health;
-
+        
         private void Awake()
         {
             _health = GetComponent<HealthComponent>();
