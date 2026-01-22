@@ -5,13 +5,14 @@ namespace Project.Components
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField] private int _maxHealth = 100;
-
         public int CurrentHealth { get; private set; }
-
         public event Action<int, int> OnHealthChanged;
         public event Action OnDied;
-
+        
+        
+        [SerializeField] private int _maxHealth = 100;
+        
+        
         private void Awake()
         {
             ResetHealth();
