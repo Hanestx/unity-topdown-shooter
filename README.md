@@ -1,102 +1,76 @@
-# \# Mobile Top-Down Shooter (Unity)
+Mobile Top-Down Shooter (Unity)
 
-# 
+Prototype of a mobile-friendly top-down shooter built with Unity.
 
-# Prototype of a mobile-friendly top-down shooter built with Unity.
+Features
 
-# 
+Rigidbody-based top-down movement
 
-# \## 🎮 Features
+New Input System (keyboard + on-screen joystick)
 
-# \- Rigidbody-based top-down movement
+Auto attack system
 
-# \- New Input System (keyboard + on-screen joystick)
+Enemy waves with increasing difficulty
 
-# \- Auto attack system
+Object pooling (bullets and enemies)
 
-# \- Enemy waves with increasing difficulty
+Event-driven health and damage system
 
-# \- Object pooling (bullets \& enemies)
+Mobile-safe UI with Safe Area support
 
-# \- Event-driven health \& damage system
+Architecture
 
-# \- Mobile-safe UI with Safe Area support
+The project uses a Component + System approach.
 
-# 
+Components store data and state (Health, Movement, Damage)
 
-# \## 🧱 Architecture
+Systems handle game logic (Movement, Combat, Waves, Spawning)
 
-# Project uses a \*\*Component + System\*\* approach:
+ScriptableObjects are used for wave configuration
 
-# 
+Event-based communication between systems
 
-# \- Components store data and state (Health, Movement, Damage)
+Implemented Patterns
 
-# \- Systems handle game logic (Movement, Combat, Waves, Spawning)
+Singleton – PoolManager
 
-# \- ScriptableObjects used for wave configuration
+Factory – EnemyFactory
 
-# \- Event-based communication between systems
+Observer – Health and spawn events
 
-# 
+Object Pooling – bullets and enemies
 
-# \## 🛠 Implemented Patterns
+Controls
 
-# \- \*\*Singleton\*\* – PoolManager
+PC (Editor):
 
-# \- \*\*Factory\*\* – EnemyFactory
+WASD
 
-# \- \*\*Observer\*\* – Health \& spawn events
+Mobile:
 
-# \- \*\*Object Pooling\*\* – bullets and enemies
+On-Screen Joystick (New Input System)
 
-# 
+Project Structure
 
-# \## 📱 Controls
+Assets/_Project/
 
-# \- \*\*PC (Editor):\*\* WASD
+Core
+Components
+Systems
+Input
+UI
+Data
+Pool
 
-# \- \*\*Mobile:\*\* On-Screen Joystick (New Input System)
+How to Run
 
-# 
+Open the project in Unity 6.x
 
-# \## 📂 Project Structure
+Load the Main scene
 
-Assets/\_Project/
+Press Play
 
-├─ Core
-
-├─ Components
-
-├─ Systems
-
-├─ Input
-
-├─ UI
-
-├─ Data
-
-└─ Pool
-
-
-
-
-
-\## 🚀 How to Run
-
-1\. Open project in Unity 6.x
-
-2\. Load `Main` scene
-
-3\. Press Play
-
-
-
-\## 📌 Notes
+Notes
 
 This project was created as a portfolio prototype to demonstrate
-
 clean architecture, mobile-ready input, and scalable gameplay systems.
-
-
-
