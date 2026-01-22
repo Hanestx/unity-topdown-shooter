@@ -1,29 +1,32 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+namespace Project.Systems
 {
-    [SerializeField] private GameObject _enemyPrefab;
-    [SerializeField] private float _spawnRadius = 10f;
-    [SerializeField] private float _spawnInterval = 2f;
-
-    private float _timer;
-
-    private void Update()
+    public class EnemySpawner : MonoBehaviour
     {
-        _timer -= Time.deltaTime;
-        if (_timer > 0f)
-            return;
+        [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private float _spawnRadius = 10f;
+        [SerializeField] private float _spawnInterval = 2f;
 
-        SpawnEnemy();
-        _timer = _spawnInterval;
-    }
+        private float _timer;
 
-    private void SpawnEnemy()
-    {
-        Vector3 position = Random.insideUnitSphere * _spawnRadius;
-        position.y = 0f;
-        position += transform.position;
+        private void Update()
+        {
+            _timer -= Time.deltaTime;
+            if (_timer > 0f)
+                return;
 
-        Instantiate(_enemyPrefab, position, Quaternion.identity);
+            SpawnEnemy();
+            _timer = _spawnInterval;
+        }
+
+        private void SpawnEnemy()
+        {
+            Vector3 position = Random.insideUnitSphere * _spawnRadius;
+            position.y = 0f;
+            position += transform.position;
+
+            Instantiate(_enemyPrefab, position, Quaternion.identity);
+        }
     }
 }

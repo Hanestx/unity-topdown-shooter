@@ -1,43 +1,47 @@
 using UnityEngine;
+using Project.Components;
 
-public class PlayerMovementSystem : MonoBehaviour
+namespace Project.Systems
 {
-    [SerializeField] private MovementComponent _movement;
-    [SerializeField] private Transform _playerTransform;
-
-    
-    private void FixedUpdate()
+    public class PlayerMovementSystem : MonoBehaviour
     {
-        if (_movement == null)
-            return;
+        [SerializeField] private MovementComponent _movement;
+        [SerializeField] private Transform _playerTransform;
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
 
-        Vector3 direction = new(horizontal, 0f, vertical);
+        private void FixedUpdate()
+        {
+            if (_movement == null)
+                return;
 
-        Move(direction);
-        Rotate(direction);
-    }
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-    
-    private void Move(Vector3 direction)
-    {
-        Vector3 velocity = direction * _movement.MoveSpeed;
-        _movement.Rigidbody.linearVelocity =
-            new Vector3(velocity.x, _movement.Rigidbody.linearVelocity.y, velocity.z);
-    }
+            Vector3 direction = new(horizontal, 0f, vertical);
 
-    private void Rotate(Vector3 direction)
-    {
-        if (direction.sqrMagnitude < 0.001f)
-            return;
+            Move(direction);
+            Rotate(direction);
+        }
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-        _playerTransform.rotation = Quaternion.Slerp(
-            _playerTransform.rotation,
-            targetRotation,
-            Time.fixedDeltaTime * 15f
-        );
+
+        private void Move(Vector3 direction)
+        {
+            Vector3 velocity = direction * _movement.MoveSpeed;
+            _movement.Rigidbody.linearVelocity =
+                new Vector3(velocity.x, _movement.Rigidbody.linearVelocity.y, velocity.z);
+        }
+
+        private void Rotate(Vector3 direction)
+        {
+            if (direction.sqrMagnitude < 0.001f)
+                return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+            _playerTransform.rotation = Quaternion.Slerp(
+                _playerTransform.rotation,
+                targetRotation,
+                Time.fixedDeltaTime * 15f
+            );
+        }
     }
 }

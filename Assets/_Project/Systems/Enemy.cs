@@ -1,20 +1,24 @@
 using UnityEngine;
+using Project.Components;
 
-[RequireComponent(typeof(HealthComponent))]
-public class Enemy : MonoBehaviour
+namespace Project.Systems
 {
-    private void OnEnable()
+    [RequireComponent(typeof(HealthComponent))]
+    public class Enemy : MonoBehaviour
     {
-        GetComponent<HealthComponent>().OnDied += OnDied;
-    }
+        private void OnEnable()
+        {
+            GetComponent<HealthComponent>().OnDied += OnDied;
+        }
 
-    private void OnDisable()
-    {
-        GetComponent<HealthComponent>().OnDied -= OnDied;
-    }
+        private void OnDisable()
+        {
+            GetComponent<HealthComponent>().OnDied -= OnDied;
+        }
 
-    private void OnDied()
-    {
-        Destroy(gameObject);
+        private void OnDied()
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,35 +1,39 @@
 using UnityEngine;
+using Project.Components;
 
-public class Bullet : MonoBehaviour
+namespace Project.Systems
 {
-    [SerializeField] private float _speed = 12f;
-    [SerializeField] private float _lifeTime = 2f;
-    [SerializeField] private int _damage = 10;
-
-    private Vector3 _direction;
-    private float _timer;
-
-    public void Init(Vector3 direction)
+    public class Bullet : MonoBehaviour
     {
-        _direction = direction;
-        _timer = _lifeTime;
-    }
+        [SerializeField] private float _speed = 12f;
+        [SerializeField] private float _lifeTime = 2f;
+        [SerializeField] private int _damage = 10;
 
-    private void Update()
-    {
-        transform.position += _direction * (_speed * Time.deltaTime);
+        private Vector3 _direction;
+        private float _timer;
 
-        _timer -= Time.deltaTime;
-        if (_timer <= 0f)
-            Destroy(gameObject);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out HealthComponent health))
+        public void Init(Vector3 direction)
         {
-            health.TakeDamage(_damage);
-            Destroy(gameObject);
+            _direction = direction;
+            _timer = _lifeTime;
+        }
+
+        private void Update()
+        {
+            transform.position += _direction * (_speed * Time.deltaTime);
+
+            _timer -= Time.deltaTime;
+            if (_timer <= 0f)
+                Destroy(gameObject);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out HealthComponent health))
+            {
+                health.TakeDamage(_damage);
+                Destroy(gameObject);
+            }
         }
     }
 }
