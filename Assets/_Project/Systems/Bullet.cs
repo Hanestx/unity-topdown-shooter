@@ -1,9 +1,10 @@
 using UnityEngine;
 using Project.Components;
+using Project.Core.Pool;
 
 namespace Project.Systems
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : MonoBehaviour, IPoolable
     {
         [SerializeField] private float _speed = 12f;
         [SerializeField] private float _lifeTime = 2f;
@@ -24,7 +25,7 @@ namespace Project.Systems
 
             _timer -= Time.deltaTime;
             if (_timer <= 0f)
-                Destroy(gameObject);
+                PoolManager.Instance.DespawnBullet(this);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -32,8 +33,17 @@ namespace Project.Systems
             if (other.TryGetComponent(out HealthComponent health))
             {
                 health.TakeDamage(_damage);
-                Destroy(gameObject);
+                PoolManager.Instance.DespawnBullet(this);
             }
+        }
+
+        public void OnSpawned()
+        {
+            _timer = _lifeTime;
+        }
+
+        public void OnDespawned()
+        {
         }
     }
 }
