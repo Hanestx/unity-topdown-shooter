@@ -10,16 +10,22 @@ namespace Project.Systems
         [SerializeField] private Transform _playerTransform;
         [SerializeField] private PlayerInputReader _input;
 
+        private Vector3 _moveDirection;
+        
+        private void Update()
+        {
+            Vector2 input = _input.MoveInput;
+            _moveDirection = new Vector3(input.x, 0f, input.y);
+
+            if (_moveDirection.sqrMagnitude > 1f)
+                _moveDirection.Normalize();
+            
+            Rotate(_moveDirection);
+        }
+
         private void FixedUpdate()
         {
-            if (_movement == null)
-                return;
-
-            Vector2 input = _input.MoveInput;
-            Vector3 direction = new Vector3(input.x, 0f, input.y);
-
-            Move(direction);
-            Rotate(direction);
+            Move(_moveDirection);
         }
 
 
