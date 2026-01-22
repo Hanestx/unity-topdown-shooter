@@ -1,32 +1,35 @@
 using UnityEngine;
 
-[RequireComponent(typeof(RectTransform))]
-public class SafeArea : MonoBehaviour
+namespace Project.UI
 {
-    private RectTransform _rectTransform;
-
-    private void Awake()
+    [RequireComponent(typeof(RectTransform))]
+    public class SafeArea : MonoBehaviour
     {
-        _rectTransform = GetComponent<RectTransform>();
-        ApplySafeArea();
-    }
+        private RectTransform _rectTransform;
 
-    private void ApplySafeArea()
-    {
-        Rect safeArea = Screen.safeArea;
+        private void Awake()
+        {
+            _rectTransform = GetComponent<RectTransform>();
+            ApplySafeArea();
+        }
 
-        Vector2 anchorMin = safeArea.position;
-        Vector2 anchorMax = safeArea.position + safeArea.size;
+        private void ApplySafeArea()
+        {
+            Rect safeArea = Screen.safeArea;
 
-        anchorMin.x /= Screen.width;
-        anchorMin.y /= Screen.height;
-        anchorMax.x /= Screen.width;
-        anchorMax.y /= Screen.height;
+            Vector2 anchorMin = safeArea.position;
+            Vector2 anchorMax = safeArea.position + safeArea.size;
 
-        _rectTransform.anchorMin = anchorMin;
-        _rectTransform.anchorMax = anchorMax;
+            anchorMin.x /= Screen.width;
+            anchorMin.y /= Screen.height;
+            anchorMax.x /= Screen.width;
+            anchorMax.y /= Screen.height;
 
-        _rectTransform.offsetMin = Vector2.zero;
-        _rectTransform.offsetMax = Vector2.zero;
+            _rectTransform.anchorMin = anchorMin;
+            _rectTransform.anchorMax = anchorMax;
+
+            _rectTransform.offsetMin = Vector2.zero;
+            _rectTransform.offsetMax = Vector2.zero;
+        }
     }
 }

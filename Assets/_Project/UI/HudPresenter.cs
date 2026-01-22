@@ -1,41 +1,45 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Project.Components;
 
-public class HudPresenter : MonoBehaviour
+namespace Project.UI
 {
-    [SerializeField] private HealthComponent _playerHealth;
-    [SerializeField] private Slider _hpSlider;
-
-    
-    private void OnEnable()
+    public class HudPresenter : MonoBehaviour
     {
-        if (_playerHealth != null)
+        [SerializeField] private HealthComponent _playerHealth;
+        [SerializeField] private Slider _hpSlider;
+
+
+        private void OnEnable()
         {
-            _playerHealth.OnHealthChanged += OnHealthChanged;
-            _playerHealth.OnDied += OnPlayerDied;
+            if (_playerHealth != null)
+            {
+                _playerHealth.OnHealthChanged += OnHealthChanged;
+                _playerHealth.OnDied += OnPlayerDied;
+            }
         }
-    }
 
-    private void OnDisable()
-    {
-        if (_playerHealth != null)
+        private void OnDisable()
         {
-            _playerHealth.OnHealthChanged -= OnHealthChanged;
-            _playerHealth.OnDied -= OnPlayerDied;
+            if (_playerHealth != null)
+            {
+                _playerHealth.OnHealthChanged -= OnHealthChanged;
+                _playerHealth.OnDied -= OnPlayerDied;
+            }
         }
-    }
 
-    
-    private void OnHealthChanged(int current, int max)
-    {
-        if (_hpSlider == null)
-            return;
 
-        _hpSlider.value = max > 0 ? (float)current / max : 0f;
-    }
+        private void OnHealthChanged(int current, int max)
+        {
+            if (_hpSlider == null)
+                return;
 
-    private void OnPlayerDied()
-    {
-        Debug.Log("Player died");
+            _hpSlider.value = max > 0 ? (float)current / max : 0f;
+        }
+
+        private void OnPlayerDied()
+        {
+            Debug.Log("Player died");
+        }
     }
 }
