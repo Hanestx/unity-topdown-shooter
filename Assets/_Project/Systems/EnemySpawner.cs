@@ -1,10 +1,10 @@
 using UnityEngine;
+using Project.Core.Pool;
 
 namespace Project.Systems
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject _enemyPrefab;
         [SerializeField] private float _spawnRadius = 10f;
         [SerializeField] private float _spawnInterval = 2f;
 
@@ -16,17 +16,17 @@ namespace Project.Systems
             if (_timer > 0f)
                 return;
 
-            SpawnEnemy();
+            Spawn();
             _timer = _spawnInterval;
         }
 
-        private void SpawnEnemy()
+        private void Spawn()
         {
-            Vector3 position = Random.insideUnitSphere * _spawnRadius;
-            position.y = 0f;
-            position += transform.position;
+            Vector3 pos = Random.insideUnitSphere * _spawnRadius;
+            pos.y = 0f;
+            pos += transform.position;
 
-            Instantiate(_enemyPrefab, position, Quaternion.identity);
+            PoolManager.Instance.EnemyFactory.Create(pos);
         }
     }
 }

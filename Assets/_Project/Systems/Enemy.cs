@@ -1,24 +1,33 @@
 using UnityEngine;
 using Project.Components;
+using Project.Core.Pool;
 
 namespace Project.Systems
 {
     [RequireComponent(typeof(HealthComponent))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IPoolable
     {
-        private void OnEnable()
+        private HealthComponent _health;
+
+        private void Awake()
         {
-            GetComponent<HealthComponent>().OnDied += OnDied;
+            _health = GetComponent<HealthComponent>();
         }
 
-        private void OnDisable()
+        public void OnSpawned()
         {
-            GetComponent<HealthComponent>().OnDied -= OnDied;
+            _health.ResetHealth();
+            _health.OnDied += OnDied;
+        }
+
+        public void OnDespawned()
+        {
+            _health.OnDied -= OnDied;
         }
 
         private void OnDied()
         {
-            Destroy(gameObject);
+            PoolManager.Instance.DespawnEnemy(this);
         }
     }
 }
