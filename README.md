@@ -1,76 +1,61 @@
-Mobile Top-Down Shooter (Unity)
+# Mobile Top-Down Shooter (Unity)
 
 Prototype of a mobile-friendly top-down shooter built with Unity.
 
-Features
+---
 
-Rigidbody-based top-down movement
+## Features
 
-New Input System (keyboard + on-screen joystick)
+- Rigidbody-based top-down movement  
+- New Input System (keyboard + on-screen joystick)  
+- Auto attack system  
+- Enemy waves with increasing difficulty  
+- Object pooling (bullets and enemies)  
+- Event-driven health and damage system  
+- Mobile-safe UI with Safe Area support  
 
-Auto attack system
+---
 
-Enemy waves with increasing difficulty
+## Architecture
 
-Object pooling (bullets and enemies)
+The project uses a **Component + System** approach.
 
-Event-driven health and damage system
+- Components store data and state (Health, Movement, Damage)  
+- Systems handle game logic (Movement, Combat, Waves, Spawning)  
+- ScriptableObjects are used for wave configuration  
+- Event-based communication between systems  
 
-Mobile-safe UI with Safe Area support
+---
 
-Architecture
+## Implemented Patterns
 
-The project uses a Component + System approach.
+- Singleton – PoolManager  
+- Factory – EnemyFactory  
+- Observer – Health and spawn events  
+- Object Pooling – bullets and enemies  
 
-Components store data and state (Health, Movement, Damage)
+---
 
-Systems handle game logic (Movement, Combat, Waves, Spawning)
+## Controls
 
-ScriptableObjects are used for wave configuration
+**PC (Editor):**
+- WASD  
 
-Event-based communication between systems
+**Mobile:**
+- On-Screen Joystick (New Input System)
 
-Implemented Patterns
 
-Singleton – PoolManager
+---
 
-Factory – EnemyFactory
+## How to Run
 
-Observer – Health and spawn events
+1. Open the project in Unity 6.x  
+2. Load the `Main` scene  
+3. Press Play  
 
-Object Pooling – bullets and enemies
+---
 
-Controls
+## Notes
 
-PC (Editor):
-
-WASD
-
-Mobile:
-
-On-Screen Joystick (New Input System)
-
-Project Structure
-
-Assets/_Project/
-
-Core
-Components
-Systems
-Input
-UI
-Data
-Pool
-
-How to Run
-
-Open the project in Unity 6.x
-
-Load the Main scene
-
-Press Play
-
-Notes
-
-This project was created as a portfolio prototype to demonstrate
+This project was created as a portfolio prototype to demonstrate  
 clean architecture, mobile-ready input, and scalable gameplay systems.
