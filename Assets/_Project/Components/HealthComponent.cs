@@ -1,57 +1,38 @@
-using System;
 using UnityEngine;
+using System;
 
 namespace Project.Components
 {
     public class HealthComponent : MonoBehaviour
     {
-        public int CurrentHp { get; private set; }
-        public int MaxHp => _maxHp;
+        [SerializeField] private int _maxHealth = 100;
 
+        public int CurrentHealth { get; private set; }
 
-        [SerializeField] private int _maxHp = 100;
-
-
-        public event Action<int, int> OnHealthChanged; // current, max
+        public event Action<int, int> OnHealthChanged;
         public event Action OnDied;
-
 
         private void Awake()
         {
-            CurrentHp = _maxHp;
-            OnHealthChanged?.Invoke(CurrentHp, _maxHp);
+            ResetHealth();
         }
-
-#if UNITY_EDITOR
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                TakeDamage(10);
-            }
-        }
-#endif
-
 
         public void TakeDamage(int damage)
         {
-            if (damage <= 0 || CurrentHp <= 0)
+            if (CurrentHealth <= 0)
                 return;
 
-            CurrentHp = Mathf.Max(0, CurrentHp - damage);
-            OnHealthChanged?.Invoke(CurrentHp, _maxHp);
+            CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);
+            OnHealthChanged?.Invoke(CurrentHealth, _maxHealth);
 
-            if (CurrentHp == 0)
+            if (CurrentHealth == 0)
                 OnDied?.Invoke();
         }
 
-        public void Heal(int amount)
+        public void ResetHealth()
         {
-            if (amount <= 0 || CurrentHp <= 0)
-                return;
-
-            CurrentHp = Mathf.Min(_maxHp, CurrentHp + amount);
-            OnHealthChanged?.Invoke(CurrentHp, _maxHp);
+            CurrentHealth = _maxHealth;
+            OnHealthChanged?.Invoke(CurrentHealth, _maxHealth);
         }
     }
 }
