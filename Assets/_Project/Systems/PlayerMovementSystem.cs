@@ -1,5 +1,6 @@
 using UnityEngine;
 using Project.Components;
+using Project.Input;
 
 namespace Project.Systems
 {
@@ -7,17 +8,15 @@ namespace Project.Systems
     {
         [SerializeField] private MovementComponent _movement;
         [SerializeField] private Transform _playerTransform;
-
+        [SerializeField] private PlayerInputReader _input;
 
         private void FixedUpdate()
         {
             if (_movement == null)
                 return;
 
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-
-            Vector3 direction = new(horizontal, 0f, vertical);
+            Vector2 input = _input.MoveInput;
+            Vector3 direction = new Vector3(input.x, 0f, input.y);
 
             Move(direction);
             Rotate(direction);
